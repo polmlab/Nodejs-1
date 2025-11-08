@@ -3,7 +3,7 @@ const { Routes } = require('discord-api-types/v10');
 
 // Ensure your environment variables are available here
 const TOKEN = process.env.DISCORD_TOKEN; 
-const CLIENT_ID = '1432417785916690563'; // Leave your Client ID
+const CLIENT_ID = '1295714784624513035'; // Leave your Client ID
 
 // --- Command Definitions ---
 // NOTE: THIS ARRAY MUST BE IDENTICAL TO THE ONE IN YOUR INDEX 5.JS

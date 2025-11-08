@@ -1845,6 +1845,18 @@ const commands = [
     }
 ];
 
+const express = require('express')
+const app = express()
+const port = process.env.PORT || 4000
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
 const TOKEN = process.env.DISCORD_TOKEN;
 const CLIENT_ID = '1432417785916690563'; // Assurez-vous que c'est le bon ID
 

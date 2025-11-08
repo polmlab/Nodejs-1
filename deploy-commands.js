@@ -1,26 +1,26 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v10');
 
-// Assurez-vous que vos variables d'environnement sont disponibles ici
+// Ensure your environment variables are available here
 const TOKEN = process.env.DISCORD_TOKEN; 
-const CLIENT_ID = '1432417785916690563'; // Laissez votre ID client
+const CLIENT_ID = '1432417785916690563'; // Leave your Client ID
 
-// --- Définition des commandes ---
-// NOTE: CE TABLEAU DOIT ÊTRE IDENTIQUE À CELUI DE VOTRE INDEX 5.JS
+// --- Command Definitions ---
+// NOTE: THIS ARRAY MUST BE IDENTICAL TO THE ONE IN YOUR INDEX 5.JS
 const commands = [
     {
         name: 'scrabble',
-        description: 'Commandes du jeu Scrabble',
+        description: 'Scrabble game commands',
         options: [
             // vsbot subcommand
             {
                 name: 'vsbot',
-                description: 'Lance une partie contre un bot',
+                description: 'Start a game against a bot',
                 type: 1, 
                 options: [
                     {
                         name: 'language',
-                        description: 'Sélectionnez la langue pour la partie.',
+                        description: 'Select the game language and dictionary.',
                         type: 3,
                         required: true,
                         choices: [
@@ -31,13 +31,13 @@ const commands = [
                     },
                     {
                         name: 'difficulty',
-                        description: 'Niveau de difficulté du bot',
+                        description: 'Bot difficulty level',
                         type: 3,
                         required: true,
                         choices: [
-                            { name: 'Easy - Mots courts, scores bas', value: 'easy' },
-                            { name: 'Medium - Stratégie équilibrée', value: 'medium' },
-                            { name: 'Hard - Mots longs, scores maximum', value: 'hard' }
+                            { name: 'Easy - Short words, low scores', value: 'easy' },
+                            { name: 'Medium - Balanced strategy', value: 'medium' },
+                            { name: 'Hard - Long words, maximum scores', value: 'hard' }
                         ]
                     }
                 ]
@@ -46,12 +46,12 @@ const commands = [
             // check subcommand
             {
                 name: 'check',
-                description: 'Vérifie si un mot existe dans le dictionnaire.',
+                description: 'Check if a word exists in the dictionary.',
                 type: 1, 
                 options: [
                     {
                         name: 'language',
-                        description: 'Le dictionnaire à vérifier (fr, en, es).',
+                        description: 'The dictionary to verify (fr, en, es).',
                         type: 3,
                         required: true,
                         choices: [
@@ -62,7 +62,7 @@ const commands = [
                     },
                     {
                         name: 'word',
-                        description: 'Le mot à vérifier.',
+                        description: 'The word to verify.',
                         type: 3,
                         required: true
                     }
@@ -72,25 +72,25 @@ const commands = [
             // ping subcommand
             {
                 name: 'ping',
-                description: 'Vérifie la latence du bot vers Discord.',
+                description: 'Check the bot\'s latency to Discord.',
                 type: 1, 
             },
 
             // score subcommand
             {
                 name: 'score',
-                description: 'Calcule le score de base Scrabble pour un mot.',
+                description: 'Calculate the base Scrabble score for a word.',
                 type: 1, 
                 options: [
                     {
                         name: 'word',
-                        description: 'Le mot dont vous voulez calculer le score (ex: QUIZ).',
+                        description: 'The word you want to calculate the score for (ex: QUIZ).',
                         type: 3, 
                         required: true
                     },
                     {
                         name: 'language',
-                        description: 'Sélectionnez la langue pour les valeurs de points correctes.',
+                        description: 'Select the language for correct point values.',
                         type: 3, 
                         required: true,
                         choices: [
@@ -105,18 +105,18 @@ const commands = [
             // lookup subcommand
             {
                 name: 'lookup',
-                description: 'Affiche la définition du dictionnaire d\'un mot.',
+                description: 'Displays the dictionary definition of a word.',
                 type: 1, 
                 options: [
                     {
                         name: 'word',
-                        description: 'Le mot à rechercher.',
+                        description: 'The word to search for.',
                         type: 3, // String
                         required: true
                     },
                     {
                         name: 'language',
-                        description: 'La langue/dictionnaire à utiliser pour le contexte.',
+                        description: 'The language/dictionary to use for context.',
                         type: 3, // String
                         required: true,
                         choices: [
@@ -131,12 +131,12 @@ const commands = [
             // challenge subcommand
             {
                 name: 'challenge',
-                description: 'Défie un autre joueur',
+                description: 'Challenge another player',
                 type: 1,
                 options: [
                     {
                         name: 'player',
-                        description: 'Joueur à défier',
+                        description: 'Player to challenge',
                         type: 6,
                         required: true
                     }
@@ -144,40 +144,40 @@ const commands = [
             },
             {
                 name: 'end',
-                description: 'Termine la partie en cours',
+                description: 'End the current game',
                 type: 1
             },
             {
                 name: 'help',
-                description: 'Affiche le menu d\'aide',
+                description: 'Show help menu',
                 type: 1
             },
             {
                 name: 'rules',
-                description: 'Affiche les règles du jeu',
+                description: 'View game rules',
                 type: 1
             }
         ]
     }
 ];
-// --- Fin de la définition des commandes ---
+// --- End of Command Definitions ---
 
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
 
 (async () => {
     try {
-        console.log('🔄 Tentative d\'enregistrement des commandes d\'application (/) GLOBALEMENT...');
+        console.log('🔄 Attempting to register application (/) commands GLOBALLY...');
         
-        // CHANGEMENT CLÉ: Utilisation de Routes.applicationCommands (sans ID de guilde)
+        // Key Change: Using Routes.applicationCommands (without Guild ID)
         await rest.put(
             Routes.applicationCommands(CLIENT_ID),
             { body: commands }
         );
 
-        console.log('✅ Commandes d\'application enregistrées avec succès GLOBALEMENT.');
-        console.log('NOTE: L\'apparition des commandes sur tous les serveurs peut prendre jusqu\'à 1 heure.');
+        console.log('✅ Application commands registered successfully GLOBALLY.');
+        console.log('NOTE: Commands may take up to 1 hour to appear on all servers.');
     } catch (error) {
-        console.error('❌ Erreur lors de l\'enregistrement des commandes:', error);
+        console.error('❌ Error registering commands:', error);
     }
 })();

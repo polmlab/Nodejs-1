@@ -1858,7 +1858,7 @@ app.listen(port, () => {
 })
 
 const TOKEN = process.env.DISCORD_TOKEN;
-const CLIENT_ID = '1432417785916690563'; // Assurez-vous que c'est le bon ID
+const CLIENT_ID = '1295714784624513035'; // Assurez-vous que c'est le bon ID
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
 
